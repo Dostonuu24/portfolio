@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberIn | Senior Dasturchi & Kiberxavfsizlik Mutaxassisi Portfolio</title>
+  <meta name="description" content="Senior darajadagi dasturchi va kiberxavfsizlik mutaxassisi shaxsiy LinkedIn uslubidagi 3D portfeli">
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%22100%22%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Three.js Library for 3D Cyber Background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="cyber-theme">
+
+  <!-- 3D WebGL Background Canvas -->
+  <canvas id="cyber-canvas"></canvas>
+  <div class="cyber-grid-overlay"></div>
+  <div class="scanlines"></div>
+
+  <!-- FLOATING 3D CYBER ROBOTS (Chekkalardagi kichik 3D robotlar) -->
+  <div class="cyber-robots-layer">
+    <!-- Robot 1: Top-Left (Sentinel Bot) -->
+    <div class="cyber-bot bot-top-left" id="bot1" title="Sentinel Bot - Tizim Himoyachisi">
+      <div class="bot-body">
+        <div class="bot-antenna"><span class="antenna-light"></span></div>
+        <div class="bot-head">
+          <div class="bot-eye left-eye"></div>
+          <div class="bot-eye right-eye"></div>
+          <div class="bot-visor-scanner"></div>
+        </div>
+        <div class="bot-torso">
+          <div class="bot-core"></div>
+        </div>
+        <div class="bot-thruster"></div>
+      </div>
+      <div class="bot-dialogue" id="bot1-bubble">Senior Dasturchi tizimi 100% faol! 🛡️</div>
+    </div>
+
+    <!-- Robot 2: Top-Right (Byte Drone) -->
+    <div class="cyber-bot bot-top-right" id="bot2" title="Byte Drone - Tarmoq Droni">
+      <div class="bot-body drone-style">
+        <div class="bot-rotors">
+          <span class="rotor r-left"></span>
+          <span class="rotor r-right"></span>
+        </div>
+        <div class="bot-head">
+          <div class="drone-sensor"></div>
+        </div>
+        <div class="bot-torso">
+          <span class="drone-light"></span>
+        </div>
+      </div>
+      <div class="bot-dialogue" id="bot2-bubble">Kali Linux terminaliga xush kelibsiz! ⚡</div>
+    </div>
+
+    <!-- Robot 3: Bottom-Left (Kali Mini Bot) -->
+    <div class="cyber-bot bot-bottom-left" id="bot3" title="Kali Hacker Bot">
+      <div class="bot-body">
+        <div class="bot-head hacker-hat">
+          <div class="bot-eye matrix-eye"></div>
+          <div class="bot-eye matrix-eye"></div>
+        </div>
+        <div class="bot-torso">
+          <div class="terminal-badge">&gt;_</div>
+        </div>
+        <div class="bot-thruster"></div>
+      </div>
+      <div class="bot-dialogue" id="bot3-bubble">10 ta mashhur Kali Linux kodi tayyor! 🐧</div>
+    </div>
+
+    <!-- Robot 4: Bottom-Right (Contact Assistant Bot) -->
+    <div class="cyber-bot bot-bottom-right" id="bot4" title="Aloqa Bot">
+      <div class="bot-body">
+        <div class="bot-head">
+          <div class="bot-eye heart-eye"></div>
+          <div class="bot-eye heart-eye"></div>
+        </div>
+        <div class="bot-torso">
+          <i class="fa-solid fa-phone-volume bot-phone-icon"></i>
+        </div>
+        <div class="bot-thruster"></div>
+      </div>
+      <div class="bot-dialogue" id="bot4-bubble">Aloqa: +998 95 068 02 24 yoki Telegram! 📲</div>
+    </div>
+  </div>
+
+  <!-- 3D LINKEDIN HEADER / NAVBAR -->
+  <header class="navbar-3d" id="navbar">
+    <div class="nav-container">
+      <!-- Logo & Search -->
+      <div class="nav-left">
+        <a href="#profile" class="cyber-logo-3d">
+          <div class="cube-3d">
+            <span class="cube-face front">In</span>
+            <span class="cube-face back">⚡</span>
+            <span class="cube-face right">Dev</span>
+            <span class="cube-face left">&gt;_</span>
+            <span class="cube-face top"></span>
+            <span class="cube-face bottom"></span>
+          </div>
+          <span class="logo-text">Cyber<span class="text-accent">In</span></span>
+          <span class="senior-tag">SR. DEV</span>
+        </a>
+
+        <div class="search-bar-3d">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="globalSearch" placeholder="Loyiha, texnologiya yoki Kali kodlarini qidirish..." autocomplete="off">
+          <span class="search-kbd">Ctrl K</span>
+        </div>
+      </div>
+
+      <!-- 3D Navigation Links -->
+      <nav class="nav-center">
+        <ul class="nav-menu-3d">
+          <li class="nav-item-3d active" data-target="feed-section">
+            <a href="#feed-section" class="nav-btn-3d">
+              <i class="fa-solid fa-house-chimney"></i>
+              <span>Asosiy</span>
+            </a>
+          </li>
+          <li class="nav-item-3d" data-target="kali-section">
+            <a href="#kali-section" class="nav-btn-3d">
+              <i class="fa-solid fa-terminal"></i>
+              <span>Kali Kodlar</span>
+              <span class="badge-pulse">10</span>
+            </a>
+          </li>
+          <li class="nav-item-3d" data-target="projects-section">
+            <a href="#projects-section" class="nav-btn-3d">
+              <i class="fa-solid fa-cube"></i>
+              <span>Loyihalar</span>
+            </a>
+          </li>
+          <li class="nav-item-3d" data-target="experience-section">
+            <a href="#experience-section" class="nav-btn-3d">
+              <i class="fa-solid fa-briefcase"></i>
+              <span>Tajriba</span>
+            </a>
+          </li>
+          <li class="nav-item-3d" data-target="contact-section">
+            <a href="#contact-section" class="nav-btn-3d highlight-nav">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Aloqa</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Right Controls: Audio, Theme & Profile dropdown -->
+      <div class="nav-right">
+        <button class="icon-btn-3d" id="soundToggle" title="Ovoz effektlarini yoqish/o'chirish">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+        <button class="icon-btn-3d" id="matrixRainToggle" title="Matritsa yomg'irini boshqarish">
+          <i class="fa-solid fa-code"></i>
+        </button>
+        <a href="#contact-section" class="quick-contact-pill">
+          <i class="fa-solid fa-phone"></i>
+          <span>+998 95 068 02 24</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN LINKEDIN 3-COLUMN CONTAINER -->
+  <main class="main-wrapper">
+    <div class="linkedin-grid">
+
+      <!-- ================= LEFT COLUMN: PROFILE CARD & STATS ================= -->
+      <aside class="left-rail">
+        
+        <!-- 3D Profile Card -->
+        <div class="card-3d profile-main-card">
+          <!-- Banner with Hacker Grid -->
+          <div class="profile-banner">
+            <div class="banner-cyber-overlay">
+              <span class="banner-badge"><i class="fa-solid fa-shield-halved"></i> ETHICAL HACKER & ARCHITECT</span>
+            </div>
+          </div>
+
+          <!-- User Avatar Container -->
+          <div class="profile-avatar-container">
+            <div class="avatar-hexagon-wrapper">
+              <div class="avatar-ring"></div>
+              <div class="avatar-img-box" id="avatarDisplayBox">
+                <!-- Profile Image -->
+                <img src="./profile.jpg" alt="Senior Dasturchi" id="userAvatarImg" class="user-avatar-img">
+                <div class="avatar-overlay-tip" id="avatarUploadTrigger" title="Rasm yuklash yoki almashtirish">
+                  <i class="fa-solid fa-camera"></i>
+                  <span>Rasm yuklash</span>
+                </div>
+              </div>
+              <span class="status-indicator-dot online" title="Status: Online & Loyihalarga ochiq"></span>
+            </div>
+            <input type="file" id="userPhotoInput" accept="image/*" style="display: none;">
+          </div>
+
+          <!-- Profile Details -->
+          <div class="profile-info">
+            <h1 class="user-name">
+              Senior Dasturchi
+              <span class="verified-badge" title="Tasdiqlangan Senior Mutaxassis"><i class="fa-solid fa-circle-check"></i></span>
+            </h1>
+            <p class="user-headline">
+              Senior Full-Stack & Cyber Security Engineer 🚀 | High-Load Systems | Microservices & Reverse Engineering
+            </p>
+            <p class="user-location">
+              <i class="fa-solid fa-location-dot"></i> O'zbekiston, Toshkent 🇺🇿 • Masofaviy / Global
+            </p>
+
+            <!-- SPECIAL HIGHLIGHT (Eng yaqin do'sti Dilshodbek) -->
+            <div class="profile-highlights-wrapper">
+              <div class="highlight-item sub-highlight single-highlight">
+                <div class="highlight-header">
+                  <span class="highlight-badge-pill sub-badge">
+                    <i class="fa-solid fa-user-group text-cyan"></i> Highlight • Eng yaqin do'sti
+                  </span>
+                  <span class="highlight-verified-star"><i class="fa-solid fa-star text-accent"></i></span>
+                </div>
+                <div class="highlight-content">
+                  <div class="highlight-avatar-icon cyan-glow">🤝</div>
+                  <div class="highlight-texts">
+                    <h4 class="highlight-person-name">Dilshodbek</h4>
+                    <p class="highlight-quote">
+                      Doim yonida bo'ladigan, kerakli payt yolg'iz qo'ymagan, Alloh yo'lida birga bo'lgan do'sti
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Direct Contact Chips in Profile -->
+            <div class="profile-direct-links">
+              <a href="https://t.me/ud2402" target="_blank" rel="noopener noreferrer" class="social-chip telegram-chip" title="Telegram: @ud2402">
+                <i class="fa-brands fa-telegram"></i> @ud2402
+              </a>
+              <a href="https://t.me/du2402" target="_blank" rel="noopener noreferrer" class="social-chip telegram-chip" title="Telegram: @du2402">
+                <i class="fa-brands fa-telegram"></i> @du2402
+              </a>
+              <a href="https://instagram.com/dostonuu_24" target="_blank" rel="noopener noreferrer" class="social-chip instagram-chip" title="Instagram: @dostonuu_24">
+                <i class="fa-brands fa-instagram"></i> @dostonuu_24
+              </a>
+              <a href="tel:+998950680224" class="social-chip phone-chip" title="Telefon qilish">
+                <i class="fa-solid fa-phone"></i> +998 95 068 02 24
+              </a>
+              <a href="tel:+998950650224" class="social-chip phone-chip" title="Telefon qilish">
+                <i class="fa-solid fa-phone"></i> +998 95 065 02 24
+              </a>
+            </div>
+
+            <!-- Profile Action Buttons (3D) -->
+            <div class="profile-actions-3d">
+              <a href="#contact-section" class="btn-3d btn-primary">
+                <i class="fa-solid fa-user-plus"></i> Bog'lanish
+              </a>
+              <a href="https://t.me/ud2402" target="_blank" rel="noopener noreferrer" class="btn-3d btn-secondary">
+                <i class="fa-brands fa-telegram"></i> Telegram Chat
+              </a>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="card-divider"></div>
+
+          <!-- LinkedIn Stats -->
+          <div class="profile-stats">
+            <div class="stat-row">
+              <span class="stat-label">Profil ko'rishlar</span>
+              <div class="stat-value-group">
+                <span class="stat-value text-accent" id="profileViewsCount">3,842</span>
+                <span class="daily-boost-pill" id="dailyViewsBadge" title="Har kuni 50 tadan 100 tagacha ko'payadi">+78 bugun</span>
+              </div>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Bog'lanishlar (Connections)</span>
+              <span class="stat-value text-accent">5,000+</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-label">Muvaffaqiyatli loyihalar</span>
+              <span class="stat-value text-accent">40+</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Skills & Tech Stack Card -->
+        <div class="card-3d tech-stack-card">
+          <div class="card-header-simple">
+            <h3><i class="fa-solid fa-microchip text-accent"></i> Asosiy Texnologiyalar</h3>
+          </div>
+          <div class="skills-tag-cloud">
+            <span class="tech-tag highlight"><i class="fa-brands fa-python"></i> Python (Senior)</span>
+            <span class="tech-tag highlight"><i class="fa-brands fa-golang"></i> Go (Golang)</span>
+            <span class="tech-tag"><i class="fa-brands fa-docker"></i> Docker & K8s</span>
+            <span class="tech-tag"><i class="fa-brands fa-linux"></i> Kali Linux / Unix</span>
+            <span class="tech-tag"><i class="fa-brands fa-node-js"></i> Node.js & TypeScript</span>
+            <span class="tech-tag"><i class="fa-brands fa-react"></i> React / Next.js</span>
+            <span class="tech-tag"><i class="fa-solid fa-database"></i> PostgreSQL & Redis</span>
+            <span class="tech-tag highlight"><i class="fa-solid fa-shield-virus"></i> Penetration Testing</span>
+            <span class="tech-tag"><i class="fa-solid fa-network-wired"></i> Microservices</span>
+            <span class="tech-tag"><i class="fa-solid fa-robot"></i> Telegram Bots & AI API</span>
+          </div>
+        </div>
+
+      </aside>
+
+      <!-- ================= CENTER COLUMN: BIO, KALI LINUX CODES & PROJECTS ================= -->
+      <section class="center-rail" id="feed-section">
+
+        <!-- 3D "Create a Post" Box (LinkedIn Style) -->
+        <div class="card-3d create-post-card">
+          <div class="post-input-row">
+            <div class="mini-avatar">
+              <img src="./profile.jpg" alt="Avatar" class="synced-avatar">
+            </div>
+            <button class="fake-post-input" id="openPostModal">
+              <span>Senior dasturchi: Yangi loyiha, arxitektura yoki xavfsizlik haqida fikr ulashing...</span>
+            </button>
+          </div>
+          <div class="post-types-row">
+            <button class="post-type-btn"><i class="fa-solid fa-image text-green"></i> <span>Rasm</span></button>
+            <button class="post-type-btn"><i class="fa-solid fa-terminal text-cyan"></i> <span>Kali Kod</span></button>
+            <button class="post-type-btn"><i class="fa-solid fa-code text-purple"></i> <span>Loyiha</span></button>
+            <button class="post-type-btn"><i class="fa-solid fa-newspaper text-orange"></i> <span>Maqola</span></button>
+          </div>
+        </div>
+
+        <!-- 3D BIO & HAQIMDA CARD (Senior Dasturchi Ma'lumotlari) -->
+        <div class="card-3d bio-card" id="bio-section">
+          <div class="card-header-row">
+            <div class="header-title-box">
+              <i class="fa-solid fa-address-card text-accent section-icon"></i>
+              <div>
+                <h2>Haqimda & Bio (Senior Dasturchi)</h2>
+                <p class="subtitle">Yuqori malakali dasturchi, arxitektor va axborot xavfsizligi bo'yicha mutaxassis</p>
+              </div>
+            </div>
+            <span class="badge-status-cyber"><i class="fa-solid fa-check-double"></i> Verified Senior</span>
+          </div>
+
+          <div class="bio-content-text">
+            <p class="bio-lead">
+              Assalomu alaykum! Men dasturlash sohasida ko'p yillik amaliy tajribaga ega bo'lgan <strong>Senior darajadagi dasturchiman</strong>.
+              Asosiy faoliyatim — murakkab arxitekturaga ega bo'lgan keng ko'lamli (High-Load) tizimlar, xavfsiz backend platformalar, zamonaviy tezkor frontend va <strong>axborot xavfsizligi (Ethical Hacking / Cyber Security)</strong> auditi ustida ishlashdir.
+            </p>
+
+            <div class="bio-pillars-grid">
+              <div class="pillar-box">
+                <div class="pillar-icon"><i class="fa-solid fa-server"></i></div>
+                <h4>High-Load & Backend</h4>
+                <p>Millionlab so'rovlarni barqaror ko'tara oladigan mikroservis arxitekturasi, keshlashtirish va optimallashtirish.</p>
+              </div>
+
+              <div class="pillar-box">
+                <div class="pillar-icon"><i class="fa-solid fa-shield-cat"></i></div>
+                <h4>Cyber Security & Kali Linux</h4>
+                <p>Tizimlarning xavfsizlik auditi, penetratsion testlar, zaifliklarni (Vulnerabilities) bartaraf etish.</p>
+              </div>
+
+              <div class="pillar-box">
+                <div class="pillar-icon"><i class="fa-solid fa-layer-group"></i></div>
+                <h4>Full-Stack & Integratsiyalar</h4>
+                <p>Zamonaviy SPA/SSR ilovalar, API shlyuzlari, murakkab Telegram botlar va to'lov tizimlari integratsiyasi.</p>
+              </div>
+            </div>
+
+            <div class="bio-quote-box">
+              <i class="fa-solid fa-quote-left quote-icon"></i>
+              <p>
+                "Yaxshi kod — bu shunchaki ishlaydigan kod emas. Bu tushunarli, xavfsiz, oson kengayuvchan va har qanday kiber hujumga bardosh bera oladigan san'at asaridir."
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= KALI LINUX 10 TA MASHXUR KODLAR BIO QISMI ================= -->
+        <div class="card-3d kali-card" id="kali-section">
+          <div class="card-header-row">
+            <div class="header-title-box">
+              <i class="fa-solid fa-terminal text-green section-icon"></i>
+              <div>
+                <h2>Men yaxshi ko'radigan kodlarim (Kali Linux - Top 10)</h2>
+                <p class="subtitle">Axborot xavfsizligi va penetratsion testlar uchun eng samarali va mashhur buyruqlar</p>
+              </div>
+            </div>
+            <span class="badge-terminal"><i class="fa-brands fa-linux"></i> Kali Linux OS</span>
+          </div>
+
+          <!-- Live Interactive Kali Linux Terminal Simulator -->
+          <div class="kali-interactive-terminal">
+            <div class="terminal-topbar">
+              <div class="terminal-dots">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+              </div>
+              <div class="terminal-title">root@kali-senior:~# bash (Live Interactive Terminal)</div>
+              <div class="terminal-actions">
+                <button class="term-btn" id="clearTerminalBtn" title="Terminalni tozalash"><i class="fa-solid fa-eraser"></i> Clear</button>
+              </div>
+            </div>
+            <div class="terminal-body" id="terminalOutput">
+              <div class="term-line welcome"><span class="prompt-user">root@kali-senior</span>:<span class="prompt-path">~</span># echo "Xush kelibsiz! Quyidagi 10 ta koddan birini bosing yoki nusxa oling:"</div>
+              <div class="term-line output info-output">Kali Linux v2026.4 GNU/Linux x86_64 - Senior Hacker & Dev Environment Ready.</div>
+            </div>
+          </div>
+
+          <!-- 10 Famous Kali Linux Commands List -->
+          <div class="kali-commands-list">
+
+            <!-- Kod 1: Nmap -->
+            <div class="kali-cmd-item" data-code="nmap -sV -sC -T4 -p- target.com" data-desc="Tarmoqdagi barcha ochiq portlarni, ularda ishlayotgan xizmatlarni va versiyalarini chuqur skanerlash.">
+              <div class="cmd-item-header">
+                <div class="cmd-badge-num">#1</div>
+                <div class="cmd-tool-name"><i class="fa-solid fa-radar"></i> Nmap — Port & Service Scanner</div>
+                <button class="copy-cmd-btn" title="Nusxa olish"><i class="fa-regular fa-copy"></i> Nusxalash</button>
+                <button class="run-cmd-btn" title="Terminalda ishga tushirish"><i class="fa-solid fa-play"></i> Run</button>
+              </div>
+              <div class="cmd-code-block">
+                <code>nmap -sV -sC -T4 -p- target.com</code>
+              </div>
+              <p class="cmd-explanation">
+                <strong>Maqsadi:</strong> Maqsadli serverdagi barcha 65,535 ta portni, xizmat versiyalarini (<code>-sV</code>) va xavfsizlik skriptlarini (<code>-sC</code>) tezkor tahlil qilish.
+              </p>
+            </div>
+
+            <!-- Kod 2: Sqlmap -->
+            <div class="kali-cmd-item" data-code="sqlmap -u &quot;http://target.com/item.php?id=1&quot; --dbs --batch" data-desc="Web ilovada SQL Injection zaifliklarini avtomatik topish va ma'lumotlar bazalarini tahlil qilish.">
+              <div class="cmd-item-header">
+                <div class="cmd-badge-num">#2</div>
+                <div class="cmd-tool-name"><i class="fa-solid fa-database"></i> SQLmap — SQL Injection Exploit</div>
+                <button class="copy-cmd-btn" title="Nusxa olish"><i class="fa-regular fa-copy"></i> Nusxalash</button>
+                <button class="run-cmd-btn" title="Terminalda ishga tushirish"><i class="fa-solid fa-play"></i> Run</button>
+              </div>
+              <div class="cmd-code-block">
+                <code>sqlmap -u "http://target.com/item.php?id=1" --dbs --batch</code>
+              </div>
+              <p class="cmd-explanation">
+                <strong>Maqsadi:</strong> Web sahifadagi zaif GET/POST parametrlarini tekshirish va serverdagi mavjud ma'lumotlar bazalari (<code>--dbs</code>) ro'yxatini chiqarish.
+              </p>
+            </div>
+
+            <!-- Kod 3: Metasploit msfconsole -->
+            <div class="kali-cmd-item" data-code="msfconsole -q" data-desc="Dunyoning eng mashhur penetratsion test va ekspluatatsiya qilish platformasini konsolda ishga tushirish.">
+              <div class="cmd-item-header">
+                <div class="cmd-badge-num">#3</div>
+                <div class="cmd-tool-name"><i class="fa-solid fa-skull-crossbones"></i> Metasploit Framework (msfconsole)</div>
+                <button class="copy-cmd-btn" title="Nusxa olish"><i class="fa-regular fa-copy"></i> Nusxalash</button>
+                <button class="run-cmd-btn" title="Terminalda ishga tushirish"><i class="fa-solid fa-play"></i> Run</button>
+              </div>
+              <div class="cmd-code-block">
+                <code>msfconsole -q</code>
+              </div>
+              <p class="cmd-explanation">
+                <strong>Maqsadi:</strong> Tizimlardagi yangi CVE zaifliklarini tekshirish, payload tayyorlash va himoyani sinovdan o'tkazish uchun universal freymvork.
+              </p>
+            </div>
+
+            <!-- Kod 4: Aircrack-ng -->
+            <div class="kali-cmd-item" data-code="aircrack-ng -w /usr/share/wordlists/rockyou.txt capture.cap" data-desc="Simsiz Wi-Fi tarmoqlari paketlarini tahlil qilish va WPA/WPA2 parollari xavfsizligini tekshirish.">
+              <div class="cmd-item-header">
+                <div class="cmd-badge-num">#4</div>
+                <div class="cmd-tool-name"><i class="fa-solid fa-wifi"></i> Aircrack-ng — Wi-Fi Xavfsizlik Auditi</div>
+                <button class="copy-cmd-btn" title="Nusxa olish"><i class="fa-regular fa-copy"></i> Nusxalash</button>
+                <button class="run-cmd-btn" title="Terminalda ishga tushirish"><i class="fa-solid fa-play"></i> Run</button>
+              </div>
+              <div class="cmd-code-block">
+                <code>aircrack-ng -w /usr/share/wordlists/rockyou.txt capture.cap</code>
+              </div>
+              <p class="cmd-explanation">
+                <strong>Maqsadi:</strong> Ushlangan 4-Way Handshake paketlarini lug'at (wordlist) yordamida tekshirish orqali Wi-Fi parollarining mustahkamligini baholash.
+              </p>
+            </div>
+
+            <!-- Kod 5: Hydra -->
+            <div class="kali-cmd-item" data-code="hydra -l admin -P /usr/share/wordlists/rockyou.txt ssh://192.168.1.100 -t 4" data-desc="SSH, FTP, HTTP va boshqa protokollar uchun tezkor va ko'p oqimli autentifikatsiya tekshiruvi.">
+              <div class="cmd-item-header">
+                <div class="cmd-badge-num">#5</div>
+                <div class="cmd-tool-name"><i class="fa-solid fa-key"></i> THC Hydra — Fast Network Logon Cracker</div>
+                <button class="copy-cmd-btn" title="Nusxa olish"><i class="fa-regular fa-copy"></i> Nusxalash</button>
+                <button class="run-cmd-btn" title="Terminalda ishga tushirish"><i class="fa-solid fa-play"></i> Run</button>
+              </div>
+              <div class="cmd-code-block">
+                <code>hydra -l admin -P /usr/share/wordlists/rockyou.txt ssh://192.168.1.100 -t 4</code>
+              </div>
+              <p class="cmd-explanation">
+                <strong>Maqsadi:</strong> Tarmoq protokollarida foydalanilayotgan parollarning brute-force hujumlariga nisbatan chidamliligini ko'p oqimda tekshirish.
+              </p>
+            </div>
+
+            <!-- Kod 6: Wireshark & Tshark -->
+            <div class="kali-cmd-item" data-code="tshark -i eth0 -f &quot;tcp port 80 or port 443&quot; -c 100" data-desc="Tarmoq paketlarini real vaqtda ushlash, protokollarni chuqur tahlil qilish va trafikni filtrlash.">
+              <div class="cmd-item-header">
+                <div class="cmd-badge-num">#6</div>
+                <div class="cmd-tool-name"><i class="fa-solid fa-network-wired"></i> Wireshark / TShark — Paket Tahlili</div>
+                <button class="copy-cmd-btn" title="Nusxa olish"><i class="fa-regular fa-copy"></i> Nusxalash</button>
+                <button class="run-cmd-btn" title="Terminalda ishga tushirish"><i class="fa-solid fa-play"></i> Run</button>
+              </div>
+              <div class="cmd-code-block">
+                <code>tshark -i eth0 -f "tcp port 80 or port 443" -c 100</code>
+              </div>
+              <p class="cmd-explanation">
+                <strong>Maqsadi:</strong> Tarmoq trafigini to'liq tekshirish, shifrlanmagan ma'lumotlar oqimini kuzatish va shubhali tarmoq faolligini aniqlash.
+              </p>
+            </div>
+
+            <!-- Kod 7: Gobuster -->
+            <div class="kali-cmd-item" data-code="gobuster dir -u http://target.com -w /usr/share/wordlists/dirb/common.txt -x php,html,txt" data-desc="Web-saytlardagi yashirin URL manzillar, ma'muriy panellar va fayllarni tezkor qidirish.">
+              <div class="cmd-item-header">
+                <div class="cmd-badge-num">#7</div>
+                <div class="cmd-tool-name"><i class="fa-solid fa-folder-tree"></i> Gobuster — Yashirin Kataloglar Qidiruvi</div>
+                <button class="copy-cmd-btn" title="Nusxa olish"><i class="fa-regular fa-copy"></i> Nusxalash</button>
+                <button class="run-cmd-btn" title="Terminalda ishga tushirish"><i class="fa-solid fa-play"></i> Run</button>
+              </div>
+              <div class="cmd-code-block">
+                <code>gobuster dir -u http://target.com -w /usr/share/wordlists/dirb/common.txt -x php,html,txt</code>
+              </div>
+              <p class="cmd-explanation">
+                <strong>Maqsadi:</strong> Sayt kodida yashirilgan <code>/admin</code>, <code>/backup</code>, <code>.env</code> kabi maxfiy fayl va kataloglarni aniqlash.
+              </p>
+            </div>
+
+            <!-- Kod 8: John the Ripper -->
+            <div class="kali-cmd-item" data-code="john --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt" data-desc="MD5, SHA256, NTLM va boshqa murakkab xesh (hash) ko'rinishidagi parollarni dekodlash.">
+              <div class="cmd-item-header">
+                <div class="cmd-badge-num">#8</div>
+                <div class="cmd-tool-name"><i class="fa-solid fa-fingerprint"></i> John the Ripper — Hash Password Cracker</div>
+                <button class="copy-cmd-btn" title="Nusxa olish"><i class="fa-regular fa-copy"></i> Nusxalash</button>
+                <button class="run-cmd-btn" title="Terminalda ishga tushirish"><i class="fa-solid fa-play"></i> Run</button>
+              </div>
+              <div class="cmd-code-block">
+                <code>john --wordlist=/usr/share/wordlists/rockyou.txt hashes.txt</code>
+              </div>
+              <p class="cmd-explanation">
+                <strong>Maqsadi:</strong> Tizim bazalaridan olingan shifrlangan xesh parollarning xavfsizlik darajasini tahlil qilish va zaif parollarni topish.
+              </p>
+            </div>
+
+            <!-- Kod 9: Nikto -->
+            <div class="kali-cmd-item" data-code="nikto -h http://target.com -ssl -Tuning 123b" data-desc="Web serverdagi 6700+ dan ortiq xavfli fayllar, eskirgan dasturlar va konfiguratsiya xatolarini skanerlash.">
+              <div class="cmd-item-header">
+                <div class="cmd-badge-num">#9</div>
+                <div class="cmd-tool-name"><i class="fa-solid fa-bug"></i> Nikto — Web Server Vulnerability Scanner</div>
+                <button class="copy-cmd-btn" title="Nusxa olish"><i class="fa-regular fa-copy"></i> Nusxalash</button>
+                <button class="run-cmd-btn" title="Terminalda ishga tushirish"><i class="fa-solid fa-play"></i> Run</button>
+              </div>
+              <div class="cmd-code-block">
+                <code>nikto -h http://target.com -ssl -Tuning 123b</code>
+              </div>
+              <p class="cmd-explanation">
+                <strong>Maqsadi:</strong> Apache, NGINX va boshqa web-serverlarning noto'g'ri sozlangan sarlavhalari (headers), xavfli HTTP metodlari va eskirgan plaginlarini aniqlash.
+              </p>
+            </div>
+
+            <!-- Kod 10: Netdiscover -->
+            <div class="kali-cmd-item" data-code="netdiscover -r 192.168.1.0/24" data-desc="Lokal tarmoqdagi (LAN/WLAN) barcha faol qurilmalar, ularning IP va MAC manzillarini tezkor aniqlash.">
+              <div class="cmd-item-header">
+                <div class="cmd-badge-num">#10</div>
+                <div class="cmd-tool-name"><i class="fa-solid fa-satellite-dish"></i> Netdiscover — ARP Network Scanner</div>
+                <button class="copy-cmd-btn" title="Nusxa olish"><i class="fa-regular fa-copy"></i> Nusxalash</button>
+                <button class="run-cmd-btn" title="Terminalda ishga tushirish"><i class="fa-solid fa-play"></i> Run</button>
+              </div>
+              <div class="cmd-code-block">
+                <code>netdiscover -r 192.168.1.0/24</code>
+              </div>
+              <p class="cmd-explanation">
+                <strong>Maqsadi:</strong> Lokal tarmoqda yashirin ulangan qurilmalarni (IoT, routerlar, serverlar) ARP so'rovlari orqali bir necha soniyada topish.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ================= PROJECTS & ARCHITECTURE SHOWCASE ================= -->
+        <div class="card-3d projects-card" id="projects-section">
+          <div class="card-header-row">
+            <div class="header-title-box">
+              <i class="fa-solid fa-cubes-stacked text-accent section-icon"></i>
+              <div>
+                <h2>Senior Loyihalar & Arxitektura</h2>
+                <p class="subtitle">Yuqori yuklamali tizimlar, xavfsizlik auditlari va dasturiy ta'minotlar</p>
+              </div>
+            </div>
+            <span class="badge-status-cyber"><i class="fa-solid fa-star"></i> Featured Works</span>
+          </div>
+
+          <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-item-3d">
+              <div class="project-header">
+                <span class="proj-badge">Cyber Security</span>
+                <span class="proj-year">2026</span>
+              </div>
+              <h4>Automated Threat Detection Engine</h4>
+              <p>Tarmoq anomaliyalari va kiberhujumlarni real vaqtda aniqlaydigan yuqori unumdorlikka ega tahlil tizimi (Go, Kali tools, eBPF).</p>
+              <div class="proj-tags">
+                <span>Go (Golang)</span>
+                <span>Linux Kernel</span>
+                <span>Prometheus</span>
+                <span>Redis</span>
+              </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-item-3d">
+              <div class="project-header">
+                <span class="proj-badge">High-Load Backend</span>
+                <span class="proj-year">2025</span>
+              </div>
+              <h4>FinTech Distributed Payment Gateway</h4>
+              <p>Sekundiga 15,000+ tranzaksiyalarni qayta ishlovchi taqsimlangan to'lov shlyuzi va xavfsiz tokenizatsiya arxitekturasi.</p>
+              <div class="proj-tags">
+                <span>Python</span>
+                <span>FastAPI</span>
+                <span>PostgreSQL</span>
+                <span>Kafka</span>
+              </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-item-3d">
+              <div class="project-header">
+                <span class="proj-badge">Telegram Ecosystem</span>
+                <span class="proj-year">2025</span>
+              </div>
+              <h4>High-Speed Bot & Media Processing Engine</h4>
+              <p>500,000+ foydalanuvchiga ega avtomatlashtirilgan Telegram bot platformasi, asinxron media konvertatsiya va to'lovlar.</p>
+              <div class="proj-tags">
+                <span>Asyncio</span>
+                <span>Aiogram</span>
+                <span>Docker</span>
+                <span>Celery</span>
+              </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-item-3d">
+              <div class="project-header">
+                <span class="proj-badge">Full-Stack Cloud</span>
+                <span class="proj-year">2024</span>
+              </div>
+              <h4>Enterprise Resource & Security Suite</h4>
+              <p>Korporativ xodimlar, huquqlar (RBAC) va xavfsizlik audit jurnallarini boshqarish uchun kengaytirilgan web platforma.</p>
+              <div class="proj-tags">
+                <span>React</span>
+                <span>Node.js</span>
+                <span>Docker</span>
+                <span>JWT/OAuth2</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= EXPERIENCE & TIMELINE ================= -->
+        <div class="card-3d experience-card" id="experience-section">
+          <div class="card-header-row">
+            <div class="header-title-box">
+              <i class="fa-solid fa-briefcase text-accent section-icon"></i>
+              <div>
+                <h2>Tajriba & Kasbiy Faoliyat</h2>
+                <p class="subtitle">Senior darajasidagi yetakchilik va muhandislik tajribasi</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-3d">
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <div>
+                    <h4>Lead Software & Security Architect</h4>
+                    <span class="company-name">CyberCore Solutions • To'liq bandlik</span>
+                  </div>
+                  <span class="timeline-date">2023 - Hozirgi vaqt</span>
+                </div>
+                <p>Tizim arxitekturasini loyihalash, xavfsizlik auditlari, mikroservislar koordinatsiyasi va junior/middle dasturchilarga mentorlik qilish.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <div>
+                    <h4>Senior Backend Developer</h4>
+                    <span class="company-name">FinTech & Cloud Systems • Masofaviy</span>
+                  </div>
+                  <span class="timeline-date">2021 - 2023</span>
+                </div>
+                <p>Yuqori yuklamali API lar yaratish, keshlashtirish, ma'lumotlar bazalarini sharding qilish va bank protokollari integratsiyasi.</p>
+              </div>
+            </div>
+
+            <div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <div class="timeline-header">
+                  <div>
+                    <h4>Full-Stack & Security Engineer</h4>
+                    <span class="company-name">Tech Innovations Lab</span>
+                  </div>
+                  <span class="timeline-date">2019 - 2021</span>
+                </div>
+                <p>Murakkab web ilovalar yaratish, dasturiy zaifliklarni bartaraf etish, avtomatlashtirilgan botlar va skriptlar ishlab chiqish.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- ================= RIGHT COLUMN: CONTACT HUB (BOG'LANISH VA TELEFONLAR) ================= -->
+      <aside class="right-rail" id="contact-section">
+
+        <!-- 3D VIP CONTACT HUB CARD -->
+        <div class="card-3d contact-hub-card">
+          <div class="contact-card-glow"></div>
+          <div class="card-header-simple">
+            <h3><i class="fa-solid fa-address-book text-green"></i> Aloqa Markazi</h3>
+            <span class="badge-online-live"><span class="pulse-live"></span> Aloqada</span>
+          </div>
+          <p class="contact-desc">
+            Loyihalar, konsultatsiya, tizim arxitekturasi yoki xavfsizlik auditi bo'yicha quyidagi vositalar orqali darhol bog'lanishingiz mumkin:
+          </p>
+
+          <!-- Telefon Raqamlar Bloki -->
+          <div class="contact-group">
+            <h4 class="group-title"><i class="fa-solid fa-phone-volume text-cyan"></i> Aloqa uchun telefonlar:</h4>
+            
+            <a href="tel:+998950680224" class="contact-action-btn phone-btn">
+              <div class="btn-left-icon">
+                <i class="fa-solid fa-phone"></i>
+              </div>
+              <div class="btn-text-content">
+                <span class="contact-label">Asosiy Telefon</span>
+                <span class="contact-value">+998 95 068 02 24</span>
+              </div>
+              <div class="btn-right-action" title="Qo'ng'iroq qilish">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+            </a>
+
+            <a href="tel:+998950650224" class="contact-action-btn phone-btn">
+              <div class="btn-left-icon">
+                <i class="fa-solid fa-phone-flip"></i>
+              </div>
+              <div class="btn-text-content">
+                <span class="contact-label">Qo'shimcha Telefon</span>
+                <span class="contact-value">+998 95 065 02 24</span>
+              </div>
+              <div class="btn-right-action" title="Qo'ng'iroq qilish">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+            </a>
+          </div>
+
+          <!-- Telegram Bloki -->
+          <div class="contact-group">
+            <h4 class="group-title"><i class="fa-brands fa-telegram text-cyan"></i> Telegram aloqa uchun:</h4>
+
+            <a href="https://t.me/ud2402" target="_blank" rel="noopener noreferrer" class="contact-action-btn telegram-btn">
+              <div class="btn-left-icon">
+                <i class="fa-brands fa-telegram"></i>
+              </div>
+              <div class="btn-text-content">
+                <span class="contact-label">Telegram Profil 1</span>
+                <span class="contact-value">@ud2402</span>
+              </div>
+              <div class="btn-right-action" title="Telegramda ochish">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+            </a>
+
+            <a href="https://t.me/du2402" target="_blank" rel="noopener noreferrer" class="contact-action-btn telegram-btn">
+              <div class="btn-left-icon">
+                <i class="fa-brands fa-telegram"></i>
+              </div>
+              <div class="btn-text-content">
+                <span class="contact-label">Telegram Profil 2</span>
+                <span class="contact-value">@du2402</span>
+              </div>
+              <div class="btn-right-action" title="Telegramda ochish">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+            </a>
+          </div>
+
+          <!-- Instagram Bloki -->
+          <div class="contact-group">
+            <h4 class="group-title"><i class="fa-brands fa-instagram text-orange"></i> Instagram aloqa uchun:</h4>
+
+            <a href="https://instagram.com/dostonuu_24" target="_blank" rel="noopener noreferrer" class="contact-action-btn instagram-btn">
+              <div class="btn-left-icon">
+                <i class="fa-brands fa-instagram"></i>
+              </div>
+              <div class="btn-text-content">
+                <span class="contact-label">Instagram Profil</span>
+                <span class="contact-value">@dostonuu_24</span>
+              </div>
+              <div class="btn-right-action" title="Instagramda ochish">
+                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </div>
+            </a>
+          </div>
+
+          <!-- Quick Message Direct Form -->
+          <div class="quick-direct-form">
+            <h4 class="group-title"><i class="fa-solid fa-paper-plane text-green"></i> Tezkor xabar yuborish:</h4>
+            <div class="form-inputs">
+              <input type="text" id="quickMsgSender" placeholder="Ismingiz yoki telefoningiz" class="form-cyber-input">
+              <textarea id="quickMsgText" rows="3" placeholder="Loyiha yoki taklif haqida qisqacha yozing..." class="form-cyber-textarea"></textarea>
+              <button id="sendDirectMsgBtn" class="btn-3d btn-primary btn-full">
+                <i class="fa-brands fa-telegram"></i> Telegram orqali yuborish
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3D Security Stats & Status Card -->
+        <div class="card-3d security-monitor-card">
+          <div class="card-header-simple">
+            <h3><i class="fa-solid fa-shield-virus text-green"></i> Kiber Himoya Monitori</h3>
+          </div>
+          <div class="sec-metrics">
+            <div class="sec-metric-item">
+              <span class="sec-lbl">Firewall holati:</span>
+              <span class="sec-val active-status">FAOL (100%)</span>
+            </div>
+            <div class="sec-metric-item">
+              <span class="sec-lbl">SSL/TLS Shifrlash:</span>
+              <span class="sec-val">AES-256 GCM</span>
+            </div>
+            <div class="sec-metric-item">
+              <span class="sec-lbl">DDoS Himoya:</span>
+              <span class="sec-val active-status">Yoniq</span>
+            </div>
+            <div class="sec-metric-item">
+              <span class="sec-lbl">Kali Pentest Statusi:</span>
+              <span class="sec-val active-status">Audited</span>
+            </div>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+  </main>
+
+  <!-- Interactive Post Modal (LinkedIn Style) -->
+  <div class="modal-backdrop" id="postModal">
+    <div class="modal-card-3d">
+      <div class="modal-header">
+        <div class="user-miniprofile">
+          <img src="./profile.jpg" alt="Avatar" class="synced-avatar modal-avatar">
+          <div>
+            <h4>Senior Dasturchi</h4>
+            <span class="post-audience"><i class="fa-solid fa-earth-americas"></i> Hammaga ko'rinadi</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="closePostModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <textarea id="modalPostText" placeholder="Dasturlash, yangi loyihalar yoki Kali Linux bo'yicha fikringizni yozing..." rows="5"></textarea>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-tools">
+          <button class="tool-btn"><i class="fa-solid fa-image"></i></button>
+          <button class="tool-btn"><i class="fa-solid fa-terminal"></i></button>
+          <button class="tool-btn"><i class="fa-solid fa-hashtag"></i></button>
+        </div>
+        <button class="btn-3d btn-primary" id="publishPostBtn">Ulashish</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLOATING 3D HUD POPUP WINDOW (Menyudan menyuga o'tganda qalqib chiquvchi oyna) -->
+  <div class="menu-popup-hud" id="menuPopupHUD">
+    <div class="menu-popup-card">
+      <div class="menu-popup-glow"></div>
+      <div class="menu-popup-icon" id="menuPopupIcon"><i class="fa-solid fa-terminal"></i></div>
+      <div class="menu-popup-text">
+        <div class="menu-popup-tag">FAOL BO'LIM</div>
+        <h4 id="menuPopupTitle">Kali Kodlar</h4>
+        <p id="menuPopupSubtitle">Bo'limga muvaffaqiyatli o'tildi</p>
+      </div>
+      <button class="menu-popup-close" id="menuPopupCloseBtn">&times;</button>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="cyber-footer">
+    <div class="footer-inner">
+      <p>© 2026 Senior Dasturchi & Cyber Security Engineer. Barcha huquqlar himoyalangan.</p>
+      <p class="footer-links">
+        <a href="tel:+998950680224">+998 95 068 02 24</a> • 
+        <a href="tel:+998950650224">+998 95 065 02 24</a> • 
+        <a href="https://t.me/ud2402" target="_blank">Telegram: @ud2402</a> • 
+        <a href="https://t.me/du2402" target="_blank">@du2402</a> • 
+        <a href="https://instagram.com/dostonuu_24" target="_blank">Instagram: @dostonuu_24</a>
+      </p>
+    </div>
+  </footer>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
